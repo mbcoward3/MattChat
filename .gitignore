@@ -8,7 +8,7 @@ dist/
 build/
 
 # Go
-homelab-mcp-server/mcp-server
+homelab-mcp-server/homelab-mcp-server
 
 # Cloned dependency
 go-sdk/

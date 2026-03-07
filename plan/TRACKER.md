@@ -5,7 +5,7 @@
 | Step | Description | Status |
 |------|-------------|--------|
 | 1 | Project Scaffold | Done |
-| 2 | Go MCP Server — Core (6 tools: echo, time, whoami, notes CRUD) | Not Started |
+| 2 | Go MCP Server — Core (6 tools: echo, time, whoami, notes CRUD) | Done |
 | 3 | Go MCP Server — Dockerfile | Not Started |
 | 4 | Python Backend — Dependencies & Config | Not Started |
 | 5 | Python Backend — Auth Layer | Not Started |
