@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Go
+homelab-mcp-server/mcp-server
+
+# Cloned dependency
+go-sdk/
+
+# Secrets
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+caddy_data/
+caddy_config/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Notes
+NOTES.md
