@@ -1,0 +1,8 @@
+openai-chatkit
+openai-agents
+fastapi
+uvicorn[standard]
+httpx
+msal
+python-jose[cryptography]
+mcp

@@ -7,7 +7,7 @@
 | 1 | Project Scaffold | Done |
 | 2 | Go MCP Server — Core (6 tools: echo, time, whoami, notes CRUD) | Done |
 | 3 | Go MCP Server — Dockerfile | Done |
-| 4 | Python Backend — Dependencies & Config | Not Started |
+| 4 | Python Backend — Dependencies & Config | Done |
 | 5 | Python Backend — Auth Layer | Not Started |
 | 6 | Python Backend — MCP Client | Not Started |
 | 7 | Python Backend — Agent | Not Started |
