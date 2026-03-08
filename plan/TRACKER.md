@@ -12,7 +12,7 @@
 | 6 | Python Backend — MCP Client | Done |
 | 7 | Python Backend — Agent | Done |
 | 8 | Python Backend — ChatKit Server | Done |
-| 9 | Python Backend — FastAPI App | Not Started |
+| 9 | Python Backend — FastAPI App | Done |
 | 10 | Frontend — ChatKit Widget | Not Started |
 | 11 | Infrastructure — Caddy, Compose, Env | Not Started |
 | 12 | Clone go-sdk Fork & Verify Build | Not Started |
