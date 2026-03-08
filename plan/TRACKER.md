@@ -11,7 +11,7 @@
 | 5 | Python Backend — Auth Layer | Done |
 | 6 | Python Backend — MCP Client | Done |
 | 7 | Python Backend — Agent | Done |
-| 8 | Python Backend — ChatKit Server | Not Started |
+| 8 | Python Backend — ChatKit Server | Done |
 | 9 | Python Backend — FastAPI App | Not Started |
 | 10 | Frontend — ChatKit Widget | Not Started |
 | 11 | Infrastructure — Caddy, Compose, Env | Not Started |
