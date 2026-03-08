@@ -10,7 +10,7 @@
 | 4 | Python Backend — Dependencies & Config | Done |
 | 5 | Python Backend — Auth Layer | Done |
 | 6 | Python Backend — MCP Client | Done |
-| 7 | Python Backend — Agent | Not Started |
+| 7 | Python Backend — Agent | Done |
 | 8 | Python Backend — ChatKit Server | Not Started |
 | 9 | Python Backend — FastAPI App | Not Started |
 | 10 | Frontend — ChatKit Widget | Not Started |
