@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MattChat — Enterprise MCP Demo</title>
+  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    #chat { height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="chat"></div>
+  <script>
+    const el = document.getElementById('chat');
+    const widget = document.createElement('chatkit-widget');
+
+    widget.setOptions({
+      api: {
+        url: '/api/chat',
+      }
+    });
+
+    el.appendChild(widget);
+  </script>
+</body>
+</html>
