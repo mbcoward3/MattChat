@@ -33,6 +33,9 @@ services:
       - MCP_SERVER_CLIENT_ID=${MCP_SERVER_CLIENT_ID}
     expose:
       - "3001"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
 
 volumes:
   caddy_data:

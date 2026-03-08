@@ -7,7 +7,8 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import JSONResponse
 
 from chatkit_server import server as chatkit_server
-from entra_auth import build_login_url, get_mcp_token, handle_callback
+from config import AUTHORITY
+from entra_auth import build_login_url, handle_callback
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=secrets.token_hex(32))
@@ -39,7 +40,10 @@ async def auth_callback(request: Request):
 @app.get("/logout")
 async def logout(request: Request):
     request.session.clear()
-    return RedirectResponse("/login")
+    return RedirectResponse(
+        f"{AUTHORITY}/oauth2/v2.0/logout"
+        f"?post_logout_redirect_uri=https://localhost/login"
+    )
 
 
 # --- ChatKit route ---
@@ -50,8 +54,7 @@ async def chat(request: Request):
     if "user" not in request.session:
         return Response(status_code=401)
 
-    access_token = request.session.get("access_token")
-    mcp_token = get_mcp_token(access_token)
+    mcp_token = request.session.get("access_token")
 
     body = await request.body()
     context = {"mcp_token": mcp_token, "request": request}

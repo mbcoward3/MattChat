@@ -5,22 +5,21 @@
   <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
   <style>
     body { margin: 0; font-family: sans-serif; }
-    #chat { height: 100vh; }
+    openai-chatkit { display: block; height: 100vh; width: 100vw; }
   </style>
 </head>
 <body>
-  <div id="chat"></div>
+  <openai-chatkit></openai-chatkit>
   <script>
-    const el = document.getElementById('chat');
-    const widget = document.createElement('chatkit-widget');
-
-    widget.setOptions({
-      api: {
-        url: '/api/chat',
-      }
+    window.addEventListener('load', function() {
+      var el = document.querySelector('openai-chatkit');
+      el.setOptions({
+        api: {
+          url: window.location.origin + '/api/chat',
+          domainKey: 'local-dev',
+        },
+      });
     });
-
-    el.appendChild(widget);
   </script>
 </body>
 </html>

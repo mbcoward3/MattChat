@@ -24,7 +24,7 @@ def get_msal_app() -> msal.ConfidentialClientApplication:
 def build_login_url(state: str) -> str:
     app = get_msal_app()
     return app.get_authorization_request_url(
-        scopes=["openid", "profile", "email", MCP_SERVER_SCOPE],
+        scopes=[MCP_SERVER_SCOPE],
         redirect_uri=REDIRECT_URI,
         state=state,
     )
@@ -34,7 +34,7 @@ def handle_callback(auth_code: str) -> dict:
     app = get_msal_app()
     result = app.acquire_token_by_authorization_code(
         code=auth_code,
-        scopes=["openid", "profile", "email", MCP_SERVER_SCOPE],
+        scopes=[MCP_SERVER_SCOPE],
         redirect_uri=REDIRECT_URI,
     )
     if "error" in result:

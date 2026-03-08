@@ -111,20 +111,37 @@ func newJWKSVerifier() auth.TokenVerifier {
 		log.Fatalf("failed to create JWKS keyfunc: %v", err)
 	}
 
+	appIDURI := fmt.Sprintf("api://%s", mcpClientID)
+
 	return func(ctx context.Context, tokenString string, _ *http.Request) (*auth.TokenInfo, error) {
 		// Parse with Entra's JWKS for RSA signature validation.
+		// Accept both v1 and v2 issuers from Entra.
+		issuerV1 := fmt.Sprintf("https://sts.windows.net/%s/", tenantID)
 		token, err := jwt.Parse(tokenString, jwks.Keyfunc,
-			jwt.WithIssuer(issuer),
-			jwt.WithAudience(mcpClientID),
 			jwt.WithExpirationRequired(),
 		)
 		if err != nil {
+			log.Printf("JWT parse error: %v", err)
 			return nil, fmt.Errorf("%w: %v", auth.ErrInvalidToken, err)
 		}
 
 		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok || !token.Valid {
 			return nil, fmt.Errorf("%w: invalid claims", auth.ErrInvalidToken)
+		}
+
+		// Validate issuer — accept both v1 and v2 format.
+		tokenIssuer := claimStr(claims, "iss")
+		if tokenIssuer != issuer && tokenIssuer != issuerV1 {
+			log.Printf("JWT issuer mismatch: got %q, want %q or %q", tokenIssuer, issuer, issuerV1)
+			return nil, fmt.Errorf("%w: invalid issuer %q", auth.ErrInvalidToken, tokenIssuer)
+		}
+
+		// Validate audience manually to accept both client ID and App ID URI.
+		aud := claimStr(claims, "aud")
+		if aud != mcpClientID && aud != appIDURI {
+			log.Printf("JWT audience mismatch: got %q, want %q or %q", aud, mcpClientID, appIDURI)
+			return nil, fmt.Errorf("%w: invalid audience %q", auth.ErrInvalidToken, aud)
 		}
 
 		// Extract scopes — Entra puts them in "scp" as a space-separated string.
