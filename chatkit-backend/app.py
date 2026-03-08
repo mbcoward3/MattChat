@@ -1,8 +1,10 @@
 import secrets
 
+from chatkit.server import StreamingResult
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.responses import HTMLResponse, RedirectResponse, Response, StreamingResponse
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.responses import JSONResponse
 
 from chatkit_server import server as chatkit_server
 from entra_auth import build_login_url, get_mcp_token, handle_callback
@@ -51,9 +53,13 @@ async def chat(request: Request):
     access_token = request.session.get("access_token")
     mcp_token = get_mcp_token(access_token)
 
-    # Pass the MCP token as context for the ChatKit server
-    request.state.chatkit_context = {"mcp_token": mcp_token}
-    return await chatkit_server.handle_request(request)
+    body = await request.body()
+    context = {"mcp_token": mcp_token, "request": request}
+    result = await chatkit_server.process(body, context)
+
+    if isinstance(result, StreamingResult):
+        return StreamingResponse(result, media_type="text/event-stream")
+    return Response(content=result.json, media_type="application/json")
 
 
 # --- Frontend ---

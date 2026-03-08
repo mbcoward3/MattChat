@@ -14,12 +14,14 @@
 | 8 | Python Backend — ChatKit Server | Done |
 | 9 | Python Backend — FastAPI App | Done |
 | 10 | Frontend — ChatKit Widget | Done |
-| 11 | Infrastructure — Caddy, Compose, Env | Not Started |
-| 12 | Clone go-sdk Fork & Verify Build | Not Started |
-| 13 | Python Backend — Verify & Adapt | Not Started |
+| 11 | Infrastructure — Caddy, Compose, Env | Done |
+| 12 | Clone go-sdk Fork & Verify Build | Done |
+| 13 | Python Backend — Verify & Adapt | Done |
 
 ## Notes
 
-- Steps 1-11: Code writing (no credentials needed)
-- Steps 12-13: Build verification
+- All code steps complete
+- Key adaptation in Step 13: ChatKit SDK imports as `chatkit` not `openai_chatkit`, no built-in InMemoryStore (wrote `memory_store.py`), tool context path is `ctx.context.request_context["mcp_token"]`, FastAPI wiring uses `server.process(body, context)` pattern
+- Added `itsdangerous` to requirements (needed by Starlette SessionMiddleware)
 - Entra app registrations (PLAN.md Phases 0-1): Done separately
+- Next: fill in `.env` with real credentials, run `docker compose up --build`

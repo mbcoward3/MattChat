@@ -6,3 +6,4 @@ httpx
 msal
 python-jose[cryptography]
 mcp
+itsdangerous

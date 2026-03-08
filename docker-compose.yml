@@ -1,0 +1,39 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - chatkit-backend
+
+  chatkit-backend:
+    build: ./chatkit-backend
+    environment:
+      - ENTRA_TENANT_ID=${ENTRA_TENANT_ID}
+      - ENTRA_CLIENT_ID=${ENTRA_CLIENT_ID}
+      - ENTRA_CLIENT_SECRET=${ENTRA_CLIENT_SECRET}
+      - MCP_SERVER_SCOPE=${MCP_SERVER_SCOPE}
+      - MCP_SERVER_URL=http://mcp-server:3001
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REDIRECT_URI=https://localhost/auth/callback
+    depends_on:
+      - mcp-server
+
+  mcp-server:
+    build:
+      context: .
+      dockerfile: homelab-mcp-server/Dockerfile
+    environment:
+      - ENTRA_TENANT_ID=${ENTRA_TENANT_ID}
+      - MCP_SERVER_CLIENT_ID=${MCP_SERVER_CLIENT_ID}
+    expose:
+      - "3001"
+
+volumes:
+  caddy_data:
+  caddy_config:
